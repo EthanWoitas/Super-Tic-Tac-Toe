@@ -77,7 +77,6 @@ int main(void)
 
 		while (1)
 		{
-			playAgain(pGame, pGameCnt);
 			printSuperBoard();
 			printCurrBoard(previousBoard, currBoard);
 			playerMove(pCurrBoard);
