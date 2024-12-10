@@ -15,7 +15,7 @@ int  playerMove(int*);
 int  computerMove(int*);
 void checkWinner(char*, char*, int, int);
 void printWinner(char);
-void playAgain(int*);
+void playAgain(int*, int*);
 
 char BOARD[9][3][3];
 
@@ -33,13 +33,16 @@ int* pCurrBoard = &currBoard;
 int Game = 1;
 int* pGame = &Game;
 
+int gameCnt = 1;
+int* pGameCnt = &gameCnt;
+
+
 /*
 TODO:
 
 Implement visual board showing what square has been won by who
 Computer difficulty settings
 Two player mode
-Add game counter if more than 1 game is played
 Abstract functions into seperate header files for readability?
 
 */
@@ -74,6 +77,7 @@ int main(void)
 
 		while (1)
 		{
+			playAgain(pGame, pGameCnt);
 			printSuperBoard();
 			printCurrBoard(previousBoard, currBoard);
 			playerMove(pCurrBoard);
@@ -100,7 +104,7 @@ int main(void)
 		system("cls");
 		printSuperBoard();
 		printWinner(winner);
-		playAgain(pGame);
+		playAgain(pGame, pGameCnt);
 
 	} while (Game == 1);
 	
@@ -135,7 +139,7 @@ void intro()
 		if (strlen(response) >= (4))
 		{
 			int x;
-			while ((x = getchar()) != '\n' && x != EOF) {}
+			while ((x = getchar()) != '\n') {}
 		}
 
 		for (int i = 0; i < 4; i++)
@@ -486,7 +490,7 @@ void printWinner(char winner)
 	}
 }
 
-void playAgain(int* pGame)
+void playAgain(int* pGame, int* pGameCnt)
 {
 	printf("Would you like to play again? [Yes]/[No]\n");
 
@@ -509,7 +513,14 @@ void playAgain(int* pGame)
 
 		if (strcmp(response, "yes") == 0)
 		{
-			printf("\n");
+			*pGameCnt = *pGameCnt + 1;
+			printf("\nGame %i!!! Starting in...\n", *pGameCnt);
+			for (int i = 3; i > 0; i--)
+			{
+				printf("%i\n", i);
+				Sleep(1000);
+			}
+			system("cls");
 			return;
 		}
 
